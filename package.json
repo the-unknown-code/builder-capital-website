@@ -1,0 +1,42 @@
+{
+	"name": "nuxt-app",
+	"type": "module",
+	"private": true,
+	"scripts": {
+		"build": "nuxt build --dotenv .env.local",
+		"dev": "nuxt dev --dotenv .env.local",
+		"generate": "nuxt generate --dotenv .env.local",
+		"preview": "nuxt preview --dotenv .env.local",
+		"postinstall": "nuxt prepare"
+	},
+	"dependencies": {
+		"@fuzzco/font-loader": "^1.0.2",
+		"@nuxt/eslint": "1.9.0",
+		"@nuxt/fonts": "0.11.4",
+		"@storyblok/nuxt": "8.0.4",
+		"eslint": "^9.0.0",
+		"gsap": "^3.13.0",
+		"lenis": "^1.3.9",
+		"lodash": "^4.17.21",
+		"mitt": "^3.0.1",
+		"nuxt": "^4.1.0",
+		"pinia": "^3.0.3",
+		"postprocessing": "^6.37.8",
+		"tempus": "^1.0.0-dev.12",
+		"three": "^0.179.1",
+		"vue": "^3.5.20",
+		"vue-router": "^4.5.1"
+	},
+	"packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e",
+	"devDependencies": {
+		"@pinia/nuxt": "^0.11.2",
+		"@types/gsap": "^3.0.0",
+		"@types/lodash": "^4.17.20",
+		"@types/three": "^0.179.0",
+		"@vueuse/nuxt": "^13.7.0",
+		"immutable": "^5.1.3",
+		"sass": "^1.91.0",
+		"typescript": "^5.9.2",
+		"vite-plugin-eslint2": "^5.0.4"
+	}
+}

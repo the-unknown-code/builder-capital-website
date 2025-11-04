@@ -49,3 +49,11 @@ export function wrapValue(value: number, lowBound: number, highBound: number) {
 	const range = highBound - lowBound;
 	return ((((value - lowBound) % range) + range) % range) + lowBound;
 }
+
+/**
+ * Returns a random float between min and max.
+ * Example: randomFloat(1, 5) → 2.3571 (could be any value 1 <= n < 5)
+ */
+export function randomFloat(min: number, max: number) {
+	return Math.random() * (max - min) + min;
+}

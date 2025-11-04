@@ -1,3 +1,4 @@
+import glsl from 'vite-plugin-glsl';
 import config, { app } from './app.config';
 import { toSass } from './shared/sass-utils';
 import { toKebabCase } from './app/libs/common/utils';
@@ -67,6 +68,7 @@ export default defineNuxtConfig({
 	},
 
 	vite: {
+		plugins: [glsl()],
 		build: {
 			cssMinify: true,
 			terserOptions: {

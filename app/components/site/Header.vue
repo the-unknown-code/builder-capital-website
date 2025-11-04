@@ -59,6 +59,15 @@ const { isDesktop } = useBreakpoints();
 		background-color: var(--black);
 		text-transform: uppercase;
 
+		&:deep(.a-div) {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
 		&:nth-child(1) {
 			cursor: pointer;
 			border-right: none;

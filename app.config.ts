@@ -107,7 +107,7 @@ export const app: AppConfig = {
 			alpha: false,
 			antialias: false,
 			stencil: false,
-			depth: false,
+			depth: true,
 			powerPreference: 'high-performance',
 			preserveDrawingBuffer: false,
 		},

@@ -1,4 +1,4 @@
-import type { PerspectiveCamera, Scene } from 'three';
+import type { PerspectiveCamera, Scene, WebGLRenderTarget } from 'three';
 import type SF3AbstractScene from './scenes/AbstractScene';
 import SF3TestScene from './scenes/Test';
 
@@ -36,10 +36,15 @@ export default class SF3ViewManager {
 		});
 	}
 
-	get activeScene(): { scene: Scene; camera: PerspectiveCamera } {
+	get activeScene(): {
+		scene: Scene;
+		camera: PerspectiveCamera;
+		rt: WebGLRenderTarget;
+	} {
 		return {
-			scene: this.#scenes[this.#currentIndex]!.scene,
-			camera: this.#scenes[this.#currentIndex]!.camera,
+			scene: this.#scenes[this.#currentIndex]!.scene as Scene,
+			camera: this.#scenes[this.#currentIndex]!.camera as PerspectiveCamera,
+			rt: this.#scenes[this.#currentIndex]!.rt as WebGLRenderTarget,
 		};
 	}
 }

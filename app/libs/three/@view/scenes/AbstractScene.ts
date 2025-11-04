@@ -32,15 +32,16 @@ export default class SF3AbstractScene {
 
 		this.#scene = new Scene();
 		this.#camera = new PerspectiveCamera(55, 1, 0.1, 10);
-		this.#camera.position.z = 3;
-		this.#camera.position.y = 3;
+		this.#camera.position.z = 2;
+		this.#camera.position.y = 2;
 		this.#camera.position.x = -2;
-		this.#camera.lookAt(0, -0.2, 0);
+		this.#camera.lookAt(0, 0, 0);
 	}
 
 	render(_time: number, _dt: number) {}
 
 	resize() {
+		this.#rt.setSize(this.#viewport.width, this.#viewport.height);
 		this.#camera.aspect = this.#viewport.width / this.#viewport.height;
 		this.#camera.updateProjectionMatrix();
 	}

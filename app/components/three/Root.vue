@@ -16,6 +16,12 @@ const { options } = defineProps({
 const $root = ref<HTMLElement | null>(null);
 const $three: SF3Application = new SF3Application(options);
 
+const resize = useDebounceFn(() => {
+	$three.resize();
+}, 100);
+
+useResizeObserver($root, resize);
+
 tryOnMounted(() => {
 	$three.start();
 	$root.value?.appendChild($three.domElement);

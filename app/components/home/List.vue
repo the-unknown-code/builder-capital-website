@@ -72,6 +72,8 @@ const PLACEHOLDER_ITEMS = [
 		padding: var(--spacer-24) var(--spacer-16);
 		overflow-y: clip;
 		max-width: none;
+		background-color: var(--black-95);
+		backdrop-filter: blur(2px);
 
 		&:first-child {
 			border-top: 1px solid var(--grey);

@@ -32,6 +32,8 @@ const model = defineModel({
 	position: relative;
 	width: 100%;
 	height: auto;
+	background-color: var(--black-95);
+	backdrop-filter: blur(2px);
 
 	input,
 	textarea {

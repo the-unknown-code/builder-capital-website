@@ -26,6 +26,8 @@ defineProps({
 	justify-content: space-between;
 	align-items: center;
 	text-align: center;
+	background-color: var(--black-95);
+	backdrop-filter: blur(2px);
 
 	img {
 		width: auto;

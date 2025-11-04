@@ -1,11 +1,13 @@
 import {
 	BufferAttribute,
 	BufferGeometry,
+	Color,
 	HalfFloatType,
 	Mesh,
 	OrthographicCamera,
 	Scene,
 	ShaderMaterial,
+	Vector2,
 	WebGLRenderer,
 	type Texture,
 	type WebGLRendererParameters,
@@ -52,6 +54,11 @@ export default class SF3Renderer {
 		this.#postShader = new ShaderMaterial({
 			uniforms: {
 				tDiffuse: { value: null },
+				uColor: { value: new Color(0x15f6df) },
+				colorNum: { value: 4 },
+				resolution: {
+					value: new Vector2(this.#viewport.width, this.#viewport.height),
+				},
 			},
 			vertexShader,
 			fragmentShader,
@@ -72,7 +79,7 @@ export default class SF3Renderer {
 		const rp: RenderPass = new RenderPass(this.#postScene, this.#postCamera);
 		this.#c.addPass(rp);
 
-		this.#r.setPixelRatio(window.devicePixelRatio);
+		this.#r.setPixelRatio(1);
 	}
 
 	#compile() {

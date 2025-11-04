@@ -12,8 +12,8 @@ export default {
 		const trigger = ScrollTrigger.create({
 			trigger: el,
 			scrub: delay !== undefined ? false : 1,
-			start: 'top 95%',
-			end: 'bottom 65%',
+			start: 'top 100%',
+			end: 'bottom 85%',
 			animation: gsap.to(el, {
 				delay,
 				maskImage: 'linear-gradient(to bottom, black 75%, transparent 200%)',

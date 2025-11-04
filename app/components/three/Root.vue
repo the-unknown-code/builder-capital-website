@@ -5,6 +5,7 @@
 <script setup lang="ts">
 import type { WebGLRendererParameters } from 'three';
 import SF3Application from '~/libs/three';
+const { width, height } = useWindowSize();
 
 const { options } = defineProps({
 	options: {
@@ -21,6 +22,7 @@ const resize = useDebounceFn(() => {
 }, 100);
 
 useResizeObserver($root, resize);
+watch([width, height], resize);
 
 tryOnMounted(() => {
 	$three.start();

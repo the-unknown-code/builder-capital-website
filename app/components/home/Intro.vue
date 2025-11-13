@@ -1,13 +1,16 @@
-<script setup lang="ts"></script>
-
 <template>
 	<section class="home-intro">
 		<h1>
-			Builder Capital is a principal investment fund that backs emerging tech
-			founders
+			{{ block.title }}
 		</h1>
 	</section>
 </template>
+
+<script setup lang="ts">
+defineProps<{
+	block: any;
+}>();
+</script>
 
 <style lang="scss" scoped>
 .home-intro {

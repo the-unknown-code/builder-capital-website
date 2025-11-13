@@ -1,10 +1,10 @@
 <template>
 	<section class="home-list">
 		<common-a-link
-			v-for="(item, index) in PLACEHOLDER_ITEMS"
+			v-for="(item, index) in block.list"
 			:key="item.project"
 			v-mask-reveal
-			:href="item.link.url"
+			:href="item.url.url"
 			class="grid-item layout-grid"
 			@pointerover="active = index"
 			@pointerleave="active = null"
@@ -13,16 +13,16 @@
 				<span class="h3">{{ item.project }}</span>
 			</div>
 			<div class="grid-item--type">
-				<span class="mono">{{ item.type }}</span>
+				<span class="mono">{{ item.status }}</span>
 			</div>
 			<div class="grid-item--category">
 				<span class="mono">{{ item.category }}</span>
 			</div>
 			<div class="grid-item--city">
-				<span class="mono">{{ item.city }}</span>
+				<span class="mono">{{ item.location }}</span>
 			</div>
 			<div class="grid-item--link">
-				<span class="mono azure">{{ item.link.label }}</span>
+				<span class="mono azure">{{ item.url_label }}</span>
 				<common-svg-mask svg="/images/arrow.svg" />
 			</div>
 			<utils-borders :blink="active === index" />
@@ -33,28 +33,9 @@
 <script setup lang="ts">
 const active: Ref<number | null> = ref(null);
 
-const PLACEHOLDER_ITEMS = [
-	{
-		project: 'Coinflow',
-		type: 'PRE-SEED',
-		category: 'industry 1, industry 2, industry 3',
-		city: 'san francisco',
-		link: {
-			label: 'coinflow.cash',
-			url: 'https://www.google.com',
-		},
-	},
-	{
-		project: 'Novanet',
-		type: 'SEED',
-		category: 'industry 1',
-		city: 'Toronto',
-		link: {
-			label: 'novanet.xyz',
-			url: 'https://www.google.com',
-		},
-	},
-];
+defineProps<{
+	block: any;
+}>();
 </script>
 
 <style lang="scss" scoped>

@@ -1,14 +1,10 @@
-<script setup lang="ts"></script>
-
 <template>
 	<section id="contact" class="home-contact">
 		<div class="layout-block">
 			<hgroup>
-				<h3 v-mask-reveal>Let’s build together</h3>
+				<h3 v-mask-reveal>{{ block.title }}</h3>
 				<p v-mask-reveal class="h1">
-					Looking to join the Builder VC family? We're always excited to connect
-					with visionary founders building the next generation of Web3
-					infrastructure and applications.
+					{{ block.description }}
 				</p>
 			</hgroup>
 
@@ -25,6 +21,12 @@
 		</div>
 	</section>
 </template>
+
+<script setup lang="ts">
+defineProps<{
+	block: any;
+}>();
+</script>
 
 <style lang="scss" scoped>
 .home-contact {

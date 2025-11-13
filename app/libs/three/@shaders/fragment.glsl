@@ -4,6 +4,7 @@ uniform sampler2D tDiffuse;
 uniform vec3 uColor;
 uniform float colorNum;
 uniform vec2 resolution;
+uniform float time;
 
 varying vec2 vUv;
 
@@ -19,34 +20,93 @@ const float bayerMatrix8x8[64] = float[64](
    42.0/64.0, 26.0/64.0, 38.0/64.0, 22.0/64.0, 41.0/64.0, 25.0/64.0, 37.0/64.0, 21.0/64.0
 );
 
+// random hash
+float hash(vec2 p) {
+    return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
+}
+
+// cubic ease in-out
+float easeInOut(float t) {
+    return t * t * (3.0 - 2.0 * t);
+}
+
+// blinking background with squared cells and smooth easing
+vec3 blinkingBackground(vec2 fragCoord) {
+    // normalize pixel coordinates (0–1)
+    vec2 uv = fragCoord / resolution;
+
+    // maintain square aspect
+    float aspect = resolution.x / resolution.y;
+    uv.x *= aspect;
+
+    // grid size: larger = smaller cells
+    float scale = 180.0;
+    vec2 cell = floor(uv * scale);
+
+    // random per cell
+    float rnd = hash(cell);
+    float speed = 0.4;
+
+    // independent smooth blink animation
+    float phase = rnd * 6.2831; // 0–2π
+    float anim = 0.5 + 0.5 * sin(time * speed + phase);
+    float eased = easeInOut(anim);
+
+    // optional skip some pixels for variation
+    float mask = step(0.25, rnd);
+
+    // base blinking intensity
+    float intensity = eased * mask * 0.05;
+
+    // ---------- CORNER BOOST ----------
+    // compute distance to each corner (uv in 0–1 range, aspect preserved)
+    vec2 p = fragCoord / resolution; // use true screen UVs (no aspect)
+    float d1 = length(p - vec2(0.0, 0.0)); // bottom-left
+    float d2 = length(p - vec2(1.0, 0.0)); // bottom-right
+    float d3 = length(p - vec2(0.0, 1.0)); // top-left
+    float d4 = length(p - vec2(1.0, 1.0)); // top-right
+
+    // find closest corner distance
+    float cornerDist = min(min(d1, d2), min(d3, d4));
+
+    // create an intensity multiplier: brighter near corners
+    float cornerBoost = smoothstep(0.8, 0.0, cornerDist); 
+    // adjust 0.8→0.0 for how wide the bright corners are
+
+    // scale the boost
+    float cornerIntensity = mix(1.0, 3.0, cornerBoost); 
+    // 3.0 = max brightness at corners
+
+    intensity *= cornerIntensity;
+    // ---------------------------------
+
+    // color tint
+    vec3 onColor = uColor;
+    return onColor * intensity;
+}
+
+
 void main() {
+    // --- background layer ---
+    vec3 bg = blinkingBackground(gl_FragCoord.xy);
+
+    // --- foreground dithering layer ---
     vec4 original = texture2D(tDiffuse, vUv);
-
-    // 1. Convert to grayscale
     float gray = dot(original.rgb, vec3(0.299, 0.587, 0.114));
-
-    // 2. Tint
-    vec3 tinted = vec3(gray * uColor.r, gray * uColor.g, gray * uColor.b);
-
-    // 3. Compute luminance again for dither masking
+    vec3 tinted = gray * uColor;
     float lum = dot(tinted, vec3(0.2126, 0.7152, 0.0722));
 
-    // 4. Fetch Bayer threshold
     int x = int(mod(gl_FragCoord.x, 8.0));
     int y = int(mod(gl_FragCoord.y, 8.0));
     float threshold = bayerMatrix8x8[y * 8 + x];
 
-    // 5. Fade out dithering in the dark areas
     float ditherStrength = smoothstep(0.05, 0.3, lum);
-
-    // 6. Apply quantized dither only where brightness allows it
     float d = threshold * ditherStrength;
     lum = lum + (d - 0.5 * ditherStrength);
-
-    // 7. Quantize output
     lum = floor(lum * (colorNum - 1.0) + 0.5) / (colorNum - 1.0);
-
     tinted = lum * normalize(uColor);
 
-    gl_FragColor = vec4(tinted, original.a);
+    // --- final composite ---
+    vec3 color = bg + tinted;
+    gl_FragColor = vec4(color, original.a);
 }

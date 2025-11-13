@@ -17,7 +17,7 @@ interface AppConfig {
 	ssr: boolean;
 	storyblok: {
 		enabled: boolean;
-		settings?: string;
+		settings?: string | boolean;
 		forceDraft?: boolean;
 		apiOptions: {
 			region?: string;
@@ -94,11 +94,11 @@ export const app: AppConfig = {
 	title: 'Bulder Capital',
 	ssr: false,
 	storyblok: {
-		enabled: false,
+		enabled: true,
 		forceDraft: process.env.STORYBLOK_FORCE_DRAFT === 'true',
-		settings: 'global', // true if global settings must be loaded before the app is mounted
+		settings: false, // true if global settings must be loaded before the app is mounted
 		apiOptions: {
-			region: 'us',
+			region: 'eu',
 		},
 	},
 	three: {

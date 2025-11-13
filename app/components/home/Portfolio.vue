@@ -1,67 +1,23 @@
 <template>
-	<section class="home-portfolio" id="portfolio">
+	<section id="portfolio" class="home-portfolio">
 		<div class="layout-block">
 			<hgroup>
-				<h2>Portfolio</h2>
+				<h2>{{ block.title }}</h2>
 				<p>
-					Partnering with visionary founders building the next generation of
-					Web3 infrastructure and applications.
+					{{ block.description }}
 				</p>
 			</hgroup>
 			<div class="home-portfolio__cards">
-				<ui-card
-					v-for="card in PLACEHOLDER_CARDS"
-					:key="card.id"
-					:block="card"
-				/>
+				<ui-card v-for="card in block.list" :key="card._uid" :block="card" />
 			</div>
 		</div>
 	</section>
 </template>
 
 <script setup lang="ts">
-const PLACEHOLDER_CARDS = [
-	{
-		id: 'Aethir',
-		logo: '/images/aethir.png',
-		description: 'Powerful GPU solutions on demand',
-	},
-	{
-		id: 'Grass',
-		logo: '/images/grass.png',
-		description: 'Get rewards on your unused internet',
-	},
-	{
-		id: 'Octra',
-		logo: '/images/octra.png',
-		description: 'Universal FHE protocol enabling the future',
-	},
-	{
-		id: 'Antimetal',
-		logo: '/images/antimetal.png',
-		description: 'Savings, visibility and infrastructure guardrails',
-	},
-	{
-		id: 'Fraction AI',
-		logo: '/images/fraction-ai.png',
-		description: 'Powerful GPU solutions on demand',
-	},
-	{
-		id: 'Aethir',
-		logo: '/images/aethir.png',
-		description: 'Powerful GPU solutions on demand',
-	},
-	{
-		id: 'Grass',
-		logo: '/images/grass.png',
-		description: 'Get rewards on your unused internet',
-	},
-	{
-		id: 'Octra',
-		logo: '/images/octra.png',
-		description: 'Universal FHE protocol enabling the future',
-	},
-];
+defineProps<{
+	block: any;
+}>();
 </script>
 
 <style lang="scss" scoped>

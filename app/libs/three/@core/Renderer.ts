@@ -59,6 +59,7 @@ export default class SF3Renderer {
 				resolution: {
 					value: new Vector2(this.#viewport.width, this.#viewport.height),
 				},
+				time: { value: 0 },
 			},
 			vertexShader,
 			fragmentShader,
@@ -103,6 +104,10 @@ export default class SF3Renderer {
 	render(_time: number, _dt: number) {
 		// const { scene, camera } = this.#manager.activeScene;
 		// this.#r.render(scene, camera);
+		if (this.#postShader.uniforms.time) {
+			this.#postShader.uniforms.time.value = _time * 0.01;
+		}
+
 		this.#compile();
 		this.#c.render();
 

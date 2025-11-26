@@ -91,7 +91,7 @@ const spacers: any = [4, 8, 16, 24, 32, 64];
 
 // Application-level configuration (SSR, prefetching, etc.)
 export const app: AppConfig = {
-	title: 'Bulder Capital',
+	title: 'Builder Capital',
 	ssr: false,
 	storyblok: {
 		enabled: true,

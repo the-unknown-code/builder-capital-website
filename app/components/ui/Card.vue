@@ -18,7 +18,7 @@ defineProps({
 .ui-card {
 	position: relative;
 	width: 100%;
-	aspect-ratio: 1;
+	aspect-ratio: 8/7;
 	padding: var(--spacer-32) var(--spacer-16);
 	border: 1px solid var(--grey);
 	display: flex;
